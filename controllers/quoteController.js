@@ -18,11 +18,13 @@ exports.getQuotes = async (req, res) => {
 };
 
 exports.getQuote = async (req, res) => {
+  console.log('here');
   try {
     const count = await Quote.count();
+    console.log(count);
     const random = Math.floor(Math.random() * count);
     const quote = await Quote.findOne().skip(random);
-
+    console.log(quote);
     if (!quote) {
       return res.json({
         success: true,
@@ -40,6 +42,7 @@ exports.getQuote = async (req, res) => {
       },
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       success: false,
     });

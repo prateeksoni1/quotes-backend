@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+  require('dotenv').config({  });
 }
 
 const express = require('express');
@@ -17,8 +17,13 @@ app.use('/api/v1/quote', quoteRouter);
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-vkbjc.mongodb.net/test?retryWrites=true&w=majority`,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log('DB connected');
+  (err) => {
+    console.log(err);
+    if (!err) {
+      console.log('DB connected');
+    } else {
+      console.log('mongo', err);
+    }
   },
 );
 
