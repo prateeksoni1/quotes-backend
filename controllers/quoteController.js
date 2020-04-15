@@ -18,13 +18,10 @@ exports.getQuotes = async (req, res) => {
 };
 
 exports.getQuote = async (req, res) => {
-  console.log('here');
   try {
     const count = await Quote.count();
-    console.log(count);
     const random = Math.floor(Math.random() * count);
     const quote = await Quote.findOne().skip(random);
-    console.log(quote);
     if (!quote) {
       return res.json({
         success: true,
@@ -42,9 +39,9 @@ exports.getQuote = async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       success: false,
+      error: err,
     });
   }
 };
@@ -67,6 +64,27 @@ exports.postQuote = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       success: false,
+      error: err,
+    });
+  }
+};
+
+exports.likeQuote = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const quote = await Quote.findByIdAndUpdate(id, { $inc: { likes: 1 } });
+
+    return res.json({
+      success: true,
+      data: {
+        count: 1,
+        quote,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: err,
     });
   }
 };
