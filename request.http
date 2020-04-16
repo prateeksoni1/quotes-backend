@@ -1,3 +1,4 @@
+
 GET http://localhost:8000/api/v1/quote
 
 ###
@@ -9,3 +10,7 @@ Content-Type: application/json
   "text": "It's all fun and games until someone loses an eye. Then it's fun and games you can't see anymore.",
   "author": "James Hetfield"
 }
+
+###
+
+POST http://localhost:8000/api/v1/quote/5e9269af5306fa0a886c7008/like

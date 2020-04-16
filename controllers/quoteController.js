@@ -72,7 +72,11 @@ exports.postQuote = async (req, res) => {
 exports.likeQuote = async (req, res) => {
   try {
     const { id } = req.params;
-    const quote = await Quote.findByIdAndUpdate(id, { $inc: { likes: 1 } });
+    const quote = await Quote.findByIdAndUpdate(
+      id,
+      { $inc: { likes: 1 } },
+      { new: true, useFindAndModify: false },
+    );
 
     return res.json({
       success: true,
