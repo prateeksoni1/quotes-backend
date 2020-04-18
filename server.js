@@ -1,9 +1,10 @@
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({  });
+  require('dotenv').config({});
 }
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const quoteRouter = require('./routes/quoteRouter');
 
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/static', express.static(path.join(__dirname, 'static')));
 
 app.use('/api/v1/quote', quoteRouter);
 
